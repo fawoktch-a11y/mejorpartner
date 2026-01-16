@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEJOR PARTNER - Votre partenaire fiable</title>
+    <link rel="stylesheet" href="Mejorpatner.css">
+</head>
+<body>
+
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <img src="image/logo 1.PNG" alt="MEJOR PARTNER">
+            <h1>MEJOR PARTNER</h1>
+        </div>
+
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav id="navMenu">
+            <a href="#">Accueil</a>
+            <a href="#services">Services</a>
+            <a href="#partenaires">Partenaires</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<!-- SLIDER -->
+<div class="header-slider">
+    <img src="image/img1.JPG" class="slide active">
+    <img src="image/img2.JPG" class="slide">
+    <img src="image/img3.JPG" class="slide">
+    <img src="image/img4.JPG" class="slide">
+    <img src="image/img5.JPG" class="slide">
+    <div class="overlay"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container hero-content">
+        <h2>Dépôts & Retraits rapides et sécurisés</h2>
+
+        <div class="bet-links">
+            <a href="#">1XBET</a>
+            <a href="#">MELBET</a>
+            <a href="#">WINWINBET</a>
+            <a href="#">888STARZ</a>
+            <a href="#">LINEBET</a>
+        </div>
+
+        <div class="info-text">
+            Remplissez le formulaire pour un <span>dépôt</span> ou un <span>retrait</span>
+        </div>
+
+        <div class="operation-form">
+            <h3>Demande de transaction</h3>
+            <form id="transactionForm">
+                <input type="text" id="site" placeholder="Site de pari" required>
+                <input type="text" id="compte" placeholder="Identifiant du compte" required>
+
+                <select id="type" required>
+                    <option value="">Type d'opération</option>
+                    <option>Dépôt</option>
+                    <option>Retrait</option>
+                </select>
+
+                <input type="number" id="montant" placeholder="Montant (FCFA)" required>
+
+                <select id="paiement" required>
+                    <option value="">Moyen de paiement</option>
+                    <option>MTN MoMo</option>
+                    <option>Moov Money</option>
+                    <option>Celtiis Cash</option>
+                </select>
+
+                <button type="submit">Envoyer la demande</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div class="bloc">
+
+<section id="services" class="services">
+    <div class="container">
+        <h2>Nos Services</h2>
+        <div class="service-box">
+            <div class="card">Dépôt rapide</div>
+            <div class="card">Retrait sécurisé</div>
+            <div class="card">Support client 24/7</div>
+        </div>
+    </div>
+</section>
+
+<section id="partenaires" class="partners">
+    <div class="container">
+        <h2>Nos Partenaires</h2>
+        <div class="partners-list">
+            <span>1XBET</span>
+            <span>MELBET</span>
+            <span>WINWINBET</span>
+            <span>888STARZ</span>
+            <span>LINEBET</span>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <p>© 2026 MEJOR PARTNER - Tous droits réservés</p>
+    <p>WhatsApp : +229 01 62 00 31 65</p>
+</footer>
+
+</div>
+
+<script>
+let index = 0;
+const slides = document.querySelectorAll(".slide");
+
+setInterval(() => {
+    slides.forEach(s => s.classList.remove("active"));
+    slides[index].classList.add("active");
+    index = (index + 1) % slides.length;
+}, 4000);
+
+function toggleMenu(){
+    document.getElementById("navMenu").classList.toggle("active");
+}
+
+document.getElementById("transactionForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const site = site.value;
+    const compte = compte.value;
+    const type = type.value;
+    const montant = montant.value;
+    const paiement = paiement.value;
+
+    const message =
+`MEJOR PARTNER - Nouvelle demande
+
+Site : ${site}
+Compte : ${compte}
+Opération : ${type}
+Montant : ${montant} FCFA
+Paiement : ${paiement}`;
+
+    window.open(
+      "https://wa.me/22962003165?text=" + encodeURIComponent(message),
+      "_blank"
+    );
+});
+</script>
+
+</body>
+</html>

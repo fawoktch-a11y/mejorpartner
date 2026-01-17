@@ -5,41 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEJOR PARTNER - Votre partenaire fiable</title>
     <link rel="stylesheet" href="Mejorpatner.css">
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00b4ff">
+
+<link rel="manifest" href="manifest.json">
+
 </head>
 <body>
+
+    <div id="loader">
+  <div class="spinner"></div>
+</div>
+
 
 <header>
     <div class="container header-content">
         <div class="logo">
-            <img src="logo 1.png" alt="MEJOR PARTNER">
-            <h1>MEJOR PARTNER</h1>
+            <img src="logo1.PNG" alt="MEJOR PARTNER">
+            
         </div>
 
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
         <nav id="navMenu">
             <a href="#">Accueil</a>
-            <a href="#services">Services</a>
-            <a href="#partenaires">Partenaires</a>
-            <a href="#contact">Contact</a>
+            
         </nav>
     </div>
+
 </header>
+
+
+
 
 <!-- SLIDER -->
 <div class="header-slider">
-    <img src="img1.jpg" class="slide active">
-    <img src="img2.jpg" class="slide">
-    <img src="img3.jpg" class="slide">
-    <img src="img4.jpg" class="slide">
-    <img src="img5.jpg" class="slide">
+    <img src="logo2.PNG" class="slide active">
+    <img src="logo3.PNG" class="slide">
+    <img src="logo4.PNG" class="slide">
+    <img src="logo5.PNG" class="slide">
+    <img src="logo6.PNG" class="slide">
+    <img src="logo7.PNG" class="slide">
     <div class="overlay"></div>
 </div>
+
+<button id="installBtn" style="display:none;">
+Installer l’application
+</button>
+
 
 <!-- HERO -->
 <section class="hero">
     <div class="container hero-content">
-        <h2>Dépôts & Retraits rapides et sécurisés</h2>
+        <h2>Dépôts & Retraits rapides et sécurisés</h2><br>
 
         <div class="bet-links">
             <a href="#">1XBET</a>
@@ -56,7 +74,16 @@
         <div class="operation-form">
             <h3>Demande de transaction</h3>
             <form id="transactionForm">
-                <input type="text" id="site" placeholder="Site de pari" required>
+
+                <select id="site" required>
+    <option value="">Sélectionnez le site de pari</option>
+    <option>1XBET</option>
+    <option>MELBET</option>
+    <option>LINEBET</option>
+    <option>888STARZ</option>
+    <option>WINWINBET</option>
+</select>
+
                 <input type="text" id="compte" placeholder="Identifiant du compte" required>
 
                 <select id="type" required>
@@ -95,7 +122,7 @@
 
 <section id="partenaires" class="partners">
     <div class="container">
-        <h2>Nos Partenaires</h2>
+        <h2>Nos Partenaires</h2><br>
         <div class="partners-list">
             <span>1XBET</span>
             <span>MELBET</span>
@@ -107,21 +134,42 @@
 </section>
 
 <footer id="contact">
-    <p>© 2026 MEJOR PARTNER - Tous droits réservés</p>
+    <p>© 2026 TransBetCash - Tous droits réservés</p>
     <p>WhatsApp : +229 01 62 00 31 65</p>
 </footer>
 
 </div>
 
 <script>
-let index = 0;
-const slides = document.querySelectorAll(".slide");
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js");
+  });
+}
+</script>
 
-setInterval(() => {
-    slides.forEach(s => s.classList.remove("active"));
-    slides[index].classList.add("active");
-    index = (index + 1) % slides.length;
-}, 4000);
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll(".slide");
+  let index = 0;
+
+  if(slides.length > 0){
+    slides[0].classList.add("active");
+
+    setInterval(() => {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }, 4000);
+  }
+});
+</script>
+
+<script>
 
 function toggleMenu(){
     document.getElementById("navMenu").classList.toggle("active");
@@ -130,30 +178,57 @@ function toggleMenu(){
 document.getElementById("transactionForm").addEventListener("submit", function(e){
     e.preventDefault();
 
-    const site = site.value;
-    const compte = compte.value;
-    const type = type.value;
-    const montant = montant.value;
-    const paiement = paiement.value;
+const site = document.getElementById("site").value;
+const compte = document.getElementById("compte").value;
+const type = document.getElementById("type").value;
+const montant = document.getElementById("montant").value;
+const paiement = document.getElementById("paiement").value;
 
-    const message =
-`MEJOR PARTNER - Nouvelle demande
+    
+const message =
+`🟢 MEJOR PARTNER - DEMANDE DE TRANSACTION
 
-Site : ${site}
-Compte : ${compte}
-Opération : ${type}
-Montant : ${montant} FCFA
-Paiement : ${paiement}`;
+📌 Site : ${site}
+👤 Compte : ${compte}
+🔁 Opération : ${type}
+💰 Montant : ${montant} FCFA
+📲 Paiement : ${paiement}`;
 
     window.open(
       "https://wa.me/22962003165?text=" + encodeURIComponent(message),
       "_blank"
     );
 });
+
+</script>
+
+
+<script>
+    
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "block";
+});
+
+installBtn.addEventListener("click", async () => {
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+  }
+});
+</script>
+
+
+
 </script>
 
 </body>
 </html>
-
 
 
